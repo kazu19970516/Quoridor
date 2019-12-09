@@ -13,7 +13,8 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
   shortY = call_short(2)
   //var x = Math.floor(Math.random()*2) + 1
   if(shortY == 0) return 100
-  if(blue + 1 < yellow) return shortB - shortY - yellow
+  if(yellow < 5) shortB - shortY - goal_count();
+  else if(blue + 2 < yellow) return shortB - shortY - yellow
   else return shortB - shortY//変更点--------------------
   //return call_short(2) - call_short(1) + (yellow - blue)
   //return Math.floor(Math.random()*100)

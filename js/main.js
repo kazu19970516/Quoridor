@@ -20,14 +20,17 @@ board = [];
 wall = [];
 
 function work_back_yellow(){
+  var startTime = 0
+  var endTime = 0
   if(window.Worker){
       var worker = new Worker('js/worker-yellow.js');
   }else{
     //window.alert("このブラウザではWeb Workersは利用できません")
   }
-  // worker.addEventListener('error',(error) => {
-  //   console.log(error);
-  // });
+  
+  worker.addEventListener('error',(error) => {
+    console.log(error);
+  });
   if(yellow_wall == 0){
     if(blue_wall == 0){
       work(wall,b1,b2,w1,w2,0)
@@ -43,11 +46,27 @@ function work_back_yellow(){
       ai1(root1)
     }
   }else{
+    startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
+
+  // if(yellow_wall == 0){
+  //   var root1 = []
+  //   work(wall,b1,b2,w1,w2,3)
+  //   root1 = call()
+  //   ai1(root1)
+  // }else{
+  //   startTime = performance.now();
+  //   worker.postMessage({"board":board,"wall":wall,
+  //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
+  //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
+  // }
+  //
   worker.onmessage = function(e){
+    endTime = performance.now();
+    console.log(endTime - startTime);
     var k = e.data
     ai1(k)
   }
@@ -55,6 +74,8 @@ function work_back_yellow(){
 }
 
 function work_back(){
+  var startTime = 0
+  var endTime = 0
   if(window.Worker){
       var worker = new Worker('js/worker.js');
   }else{
@@ -78,11 +99,14 @@ function work_back(){
       ai1(root1)
     }
   }else{
+    startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
   worker.onmessage = function(e){
+    endTime = performance.now();
+    console.log(endTime - startTime);
     var k = e.data
     ai1(k)
   }
