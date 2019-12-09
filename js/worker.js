@@ -79,8 +79,8 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
   if(level == 2){
     return eval(b1,b2,w1,w2,turn,blue,yellow)
     //return 0;
-  }//黄色がAIとする場合
-  if(turn == 1){//----------------------------
+  }
+  if(turn == 2){//----------------------------
     value = 9999;
   }else{
     value = -9999
