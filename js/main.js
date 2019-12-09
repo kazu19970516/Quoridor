@@ -20,6 +20,8 @@ board = [];
 wall = [];
 
 function work_back_yellow(){
+  var startTime = 0
+  var endTime = 0
   if(window.Worker){
       var worker = new Worker('js/worker-yellow.js');
   }else{
@@ -44,7 +46,6 @@ function work_back_yellow(){
     }
   }else{
     startTime = performance.now();
-    console.log("計算中")
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
@@ -59,6 +60,8 @@ function work_back_yellow(){
 }
 
 function work_back(){
+  var startTime = 0
+  var endTime = 0
   if(window.Worker){
       var worker = new Worker('js/worker.js');
   }else{

@@ -1,7 +1,7 @@
 var node_wall = []
 var node_board = []
 var n = 9;
-var SEARCH_LEVEL = 1
+var SEARCH_LEVEL = 3
 var x,y,wx,wy,blue,yellow;
 var shortB
 var shortY
