@@ -1,5 +1,5 @@
 ﻿var show_result = function(victory){
-  if(victory == PIECE_TYPE.BLUE) alert("緑色の勝ちです");
+  if(victory == PIECE_TYPE.BLUE) alert("青の勝ちです");
   else alert("黄色の勝ちです")
 }
 

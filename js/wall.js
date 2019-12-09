@@ -69,7 +69,7 @@ function ans_root(start,goal){
   var sy = Math.floor((goal / 9)) + 1;
   var sx = (goal % 9) + 1;
   while(true){
-    //console.log(sy + " " + sx + " " + goal + " " + par[57])
+    //alert(sy + " " + sx + " " + goal)
     if(par[here] == 0)break;
     if(par[here] - 1 == par[here - 9] && wall[sy-1][sx] != 4 && wall[sy-1][sx-1] != 4){
       here = here - 9;
@@ -81,12 +81,12 @@ function ans_root(start,goal){
       sy = sy + 1;
       root.unshift(0)
     }
-    else if(par[here] - 1 == par[here - 1] && wall[sy-1][sx-1] != 3 && wall[sy][sx-1] != 3){
+    else if(par[here] - 1 == par[here - 1] && wall[sy-1][sx] != 3 && wall[sy][sx] != 3){
       here = here - 1;
       sx = sx - 1
       root.unshift(2)
     }
-    else if(par[here] - 1 == par[here + 1] && wall[sy-1][sx] != 3 && wall[sy][sx] != 3){
+    else if(par[here] - 1 == par[here + 1] && wall[sy-1][sx-1] != 3 && wall[sy][sx-1] != 3){
       here = here + 1;
       sx = sx + 1
       root.unshift(3)
@@ -100,18 +100,16 @@ function call(){
 function emp(){
   root = []
 }
-function make_root_ans(n,sy,sx,wall,turn,yy,xx){
+function make_root_ans(n,sy,sx,wall,turn){
   var root_ans = []
   var i = 0;
   var start = (sy-1) * n + (sx-1);
-  var teki = (yy-1) * n + (xx-1);
-  emp();
   var start_parent = find_root(parent[start])
   make_same(n,start);
   par[start] = 0;
-  //par[teki] = 100;
   find(sy,sx,1,n,wall);
   var ans = find_short(turn,0)
+  //ans_root(start,sy,sx,ans,wall,root_ans,i)
   ans_root(start,ans)
   return root;
 }
@@ -193,8 +191,7 @@ function work(wall,b1,b2,w1,w2,a) {
             short_blue = make_root(n,b2,b1,wall,1)
             //alert(short_blue + "青" + short_yellow + "黄")
           }else{
-            if(a == 2)make_root_ans(n,b2,b1,wall,1,w2,w1)
-            else if(a == 3)make_root_ans(n,w2,w1,wall,2,b2,b1)
+            make_root_ans(n,b2,b1,wall,1)
           }
           return true;
         }

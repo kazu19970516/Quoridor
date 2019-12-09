@@ -19,82 +19,21 @@ var blue_wall,yellow_wall;
 board = [];
 wall = [];
 
-function work_back_yellow(){
-  var startTime = 0
-  var endTime = 0
-  if(window.Worker){
-      var worker = new Worker('js/worker-yellow.js');
-  }else{
-    //window.alert("このブラウザではWeb Workersは利用できません")
-  }
-  // worker.addEventListener('error',(error) => {
-  //   console.log(error);
-  // });
-  if(yellow_wall == 0){
-    if(blue_wall == 0){
-      work(wall,b1,b2,w1,w2,0)
-      var shortB = call_short(1)
-      var shortY = call_short(2)
-      if(shortB > shortY) victory = PIECE_TYPE.YELLOW
-      else victory = PIECE_TYPE.BLUE
-      show_result(victory);
-    }else{
-      var root1 = []
-      work(wall,b1,b2,w1,w2,3)
-      root1 = call()
-      ai1(root1)
-    }
-  }else{
-    startTime = performance.now();
-    worker.postMessage({"board":board,"wall":wall,
-                        "b1":b1,"b2":b2,"w1":w1,"w2":w2,
-                        "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
-  }
-  worker.onmessage = function(e){
-    endTime = performance.now();
-    console.log(endTime - startTime);
-    var k = e.data
-    ai1(k)
-  }
-  //worker.postMessage([board,wall,b1,b2,w1,w2,turn,blue_wall,yellow_wall])
-}
-
+ var worker = new Worker('js/worker.js');
 function work_back(){
-  var startTime = 0
-  var endTime = 0
-  if(window.Worker){
-      var worker = new Worker('js/worker.js');
-  }else{
-    //window.alert("このブラウザではWeb Workersは利用できません")
+  worker.onmessage = function(e){
+    var k = e.data
+    ai1(k)
   }
-  // worker.addEventListener('error',(error) => {
-  //   console.log(error);
-  // })
   if(blue_wall == 0){
-    if(yellow_wall == 0){
-      work(wall,b1,b2,w1,w2,0)
-      var shortB = call_short(1)
-      var shortY = call_short(2)
-      if(shortB > shortY) victory = PIECE_TYPE.YELLOW
-      else victory = PIECE_TYPE.BLUE
-      show_result(victory);
-    }else{
-      var root1 = []
-      work(wall,b1,b2,w1,w2,2)
-      root1 = call()
-      ai1(root1)
-    }
+    var root1 = []
+    work(wall,b1,b2,w1,w2,1)
+    root1 = call()
+    ai1(root1)
   }else{
-    startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
-  }
-  worker.onmessage = function(e){
-    endTime = performance.now();
-    console.log(endTime - startTime);
-    var k = e.data
-    ai1(k)
   }
   //worker.postMessage([board,wall,b1,b2,w1,w2,turn,blue_wall,yellow_wall])
 }
@@ -188,9 +127,8 @@ var enable_button = function(){
 //ボタンのアクション
 document.onkeyup = keyup;
 function keyup(event){
-	//if(victory == 1 || victory == 2 || turn == PIECE_TYPE.BLUE)return false//cpu黄色のターンも動かせない----------
-  if(victory == 1 || victory == 2)return false
-  //up
+	if(victory == 1 || victory == 2 || turn == PIECE_TYPE.BLUE)return false//cpu黄色のターンも動かせない----------
+	//up
 	if(event.which == 38){
 	if(turn === PIECE_TYPE.BLUE){
    if(board[b2 - 1][b1] == PIECE_TYPE.YELLOW){
@@ -268,7 +206,7 @@ var shift = function(){
     document.getElementById("wall").innerText =yellow_wall;
   }
   else {
-    document.getElementById("turn").innerText ="緑色のターン"
+    document.getElementById("turn").innerText ="青色のターン"
     document.getElementById("wall").innerText =blue_wall;
   }
 };
@@ -357,13 +295,11 @@ update = function(){
     move();
     if(judge()){
       show_result(victory);
-    }else{
-      show(piece);
-      shift();
-      if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
-      if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
     }
-  }//else{alert("その行動はダメです " + turn);}
+    show(piece);
+    shift();
+    if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
+  }else{alert("その行動はダメです");}
 }
 //壁を置くときのチェック項目
 update_wall = function(){
@@ -374,8 +310,7 @@ update_wall = function(){
   }
   show(piece);
   shift();
-  if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
-  if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
+  if(turn === PIECE_TYPE.BLUE) work_back();//-------------------
 }
 //壁を置けるかの判定
 chk_wall = function(y,x,HW){
