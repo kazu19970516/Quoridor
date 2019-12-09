@@ -76,7 +76,7 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
   var bestX;
   var bestY;
   var a = [];
-  if(level == 2){
+  if(level == 0){
     return eval(b1,b2,w1,w2,turn,blue,yellow)
     //return 0;
   }
