@@ -376,7 +376,7 @@ update = function(){
     }else{
       show(piece);
       shift();
-      //if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
+      if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
       if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
     }
   }//else{alert("その行動はダメです " + turn);}
@@ -390,7 +390,7 @@ update_wall = function(){
   }
   show(piece);
   shift();
-  //if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
+  if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
   if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
 }
 //壁を置けるかの判定
