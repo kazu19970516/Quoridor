@@ -27,7 +27,7 @@ function work_back_yellow(){
   }else{
     //window.alert("このブラウザではWeb Workersは利用できません")
   }
-  
+
   worker.addEventListener('error',(error) => {
     console.log(error);
   });
@@ -46,6 +46,7 @@ function work_back_yellow(){
       ai1(root1)
     }
   }else{
+    console.log("黄色計算中")
     startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
@@ -99,6 +100,7 @@ function work_back(){
       ai1(root1)
     }
   }else{
+    console.log("緑色計算中")
     startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
@@ -455,6 +457,6 @@ window.onload = function(){
   x1 = 5; x2 = 9; y1 = 5; y2 = 1;
   blue_wall = 10; yellow_wall = 10;
   show(piece);
-  //work_back();//---------------
+  work_back();//---------------
 };
 })();
