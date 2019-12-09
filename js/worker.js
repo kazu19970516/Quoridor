@@ -1,7 +1,7 @@
 var node_wall = []
 var node_board = []
 var n = 9;
-var SEARCH_LEVEL = 3
+var SEARCH_LEVEL = 2
 var x,y,wx,wy,blue,yellow;
 var shortB
 var shortY
@@ -11,15 +11,15 @@ importScripts("wall.js")
 function eval(b1,b2,w1,w2,turn,blue,yellow){
   shortB = call_short(1)
   shortY = call_short(2)
-  if(shortY == 0) return 100
-  if(blue + 2 < yellow) return shortB - shortY - yellow
+  if(shortB == 0) return 100
+  if(blue + 2 < yellow) return shortB - shortY - blue
   else return shortB - shortY//変更点--------------------
   //return call_short(2) - call_short(1) + (yellow - blue)
   //return Math.floor(Math.random()*100)
 }
 function evalChild(turn,child,value,type,k,j,i,bestX,bestY,alpha,beta){
   //alert(child + " " + value + " " + beta + " " + alpha)
-  if(turn == 1){//^^^^^^^^^^^^^^^^^
+  if(turn == 2){//^^^^^^^^^^^^^^^^^
     if(child < value){
       value = child;
       beta = value;
@@ -76,7 +76,7 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
   var bestX;
   var bestY;
   var a = [];
-  if(level == 0){
+  if(level == 2){
     return eval(b1,b2,w1,w2,turn,blue,yellow)
     //return 0;
   }//黄色がAIとする場合
