@@ -12,11 +12,6 @@ function call_short(turn){
     return short_yellow
   }else return short_blue
 }
-
-function goal_count(){
-  return goal_count;
-}
-
 function find(sy,sx,s,n,wall){
   var k = (sy-1) * n + (sx-1);
      //down
