@@ -19,7 +19,7 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
   }else if(yellow + 2 < blue){
     return shortY - shortB - blue -x
   }else{
-    return shortY - shortB -blue
+    return shortY - shortB
   }//変更点--------------------
   //return call_short(2) - call_short(1) + (yellow - blue)
   //return Math.floor(Math.random()*100)
