@@ -3,11 +3,20 @@ var par = []
 root = []
 var short_blue
 var short_yellow
+var goal_count
 
 function call_short(turn){
-  if(turn == 2)return short_yellow
-  else return short_blue
+  if(turn == 3){
+    return goal_count;
+  }else if(turn == 2){
+    return short_yellow
+  }else return short_blue
 }
+
+function goal_count(){
+  return goal_count;
+}
+
 function find(sy,sx,s,n,wall){
   var k = (sy-1) * n + (sx-1);
      //down
@@ -55,9 +64,12 @@ function find_short(turn,k){
   var x = 0;
   if(turn == 2) x = 72;
   for(var i = 0;i < 9;i++){
-    if(par[i + x] < short && par[i + x] > 0){
-      short = par[i + x];
-      goal = i + x
+    if(par[i + x] > 0){
+      goal_count++
+      if(par[i + x] < short){
+        short = par[i + x];
+        goal = i + x
+      }
     }
   }
   if(k == 0) return goal
@@ -161,6 +173,7 @@ function work(wall,b1,b2,w1,w2,a) {
     var n = 9
     var blue = (b2-1) * n + (b1-1);
     var yellow = (w2-1) * n + (w1-1);
+    goal_count = 0;
     init(n)
     for (var i = 0; i < n; i++) {
     for (var j = 0; j < n; j++) {

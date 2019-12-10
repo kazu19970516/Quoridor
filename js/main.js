@@ -27,6 +27,7 @@ function work_back_yellow(){
   }else{
     //window.alert("このブラウザではWeb Workersは利用できません")
   }
+
   // worker.addEventListener('error',(error) => {
   //   console.log(error);
   // });
@@ -45,11 +46,25 @@ function work_back_yellow(){
       ai1(root1)
     }
   }else{
+    console.log("黄色計算中")
     startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
+
+  // if(yellow_wall == 0){
+  //   var root1 = []
+  //   work(wall,b1,b2,w1,w2,3)
+  //   root1 = call()
+  //   ai1(root1)
+  // }else{
+  //   startTime = performance.now();
+  //   worker.postMessage({"board":board,"wall":wall,
+  //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
+  //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
+  // }
+  //
   worker.onmessage = function(e){
     endTime = performance.now();
     console.log(endTime - startTime);
@@ -85,6 +100,7 @@ function work_back(){
       ai1(root1)
     }
   }else{
+    console.log("緑色計算中")
     startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
@@ -360,7 +376,7 @@ update = function(){
     }else{
       show(piece);
       shift();
-      //if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
+      if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
       if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
     }
   }//else{alert("その行動はダメです " + turn);}
@@ -374,7 +390,7 @@ update_wall = function(){
   }
   show(piece);
   shift();
-  //if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
+  if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
   if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
 }
 //壁を置けるかの判定
@@ -441,6 +457,6 @@ window.onload = function(){
   x1 = 5; x2 = 9; y1 = 5; y2 = 1;
   blue_wall = 10; yellow_wall = 10;
   show(piece);
-  //work_back();//---------------
+  work_back();//---------------
 };
 })();
