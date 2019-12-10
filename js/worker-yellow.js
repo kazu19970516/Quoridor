@@ -15,8 +15,7 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
   if(shortY == 0){
       return 100
   }else if(shortB < shortY){
-    var x = Math.floor(Math.random()*3) + 1
-    return shortB*x - shortY;
+    return shortB - shortY;
   }else if(blue + 2 < yellow){
     return shortB - shortY - yellow
   }else{
