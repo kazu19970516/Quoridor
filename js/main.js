@@ -28,9 +28,9 @@ function work_back_yellow(){
     //window.alert("このブラウザではWeb Workersは利用できません")
   }
 
-  worker.addEventListener('error',(error) => {
-    console.log(error);
-  });
+  // worker.addEventListener('error',(error) => {
+  //   console.log(error);
+  // });
   if(yellow_wall == 0){
     if(blue_wall == 0){
       work(wall,b1,b2,w1,w2,0)
@@ -376,7 +376,7 @@ update = function(){
     }else{
       show(piece);
       shift();
-      if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
+      //if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
       if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
     }
   }//else{alert("その行動はダメです " + turn);}
@@ -390,7 +390,7 @@ update_wall = function(){
   }
   show(piece);
   shift();
-  if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
+  //if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
   if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
 }
 //壁を置けるかの判定
@@ -457,6 +457,6 @@ window.onload = function(){
   x1 = 5; x2 = 9; y1 = 5; y2 = 1;
   blue_wall = 10; yellow_wall = 10;
   show(piece);
-  work_back();//---------------
+  //work_back();//---------------
 };
 })();

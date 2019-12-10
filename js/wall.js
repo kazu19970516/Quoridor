@@ -6,11 +6,11 @@ var short_yellow
 var goal_count
 
 function call_short(turn){
-  if(turn == 2)return short_yellow
-  else return short_blue
-}
-function goal_count(){
-  return goal_count;
+  if(turn == 3){
+    return goal_count;
+  }else if(turn == 2){
+    return short_yellow
+  }else return short_blue
 }
 function find(sy,sx,s,n,wall){
   var k = (sy-1) * n + (sx-1);
