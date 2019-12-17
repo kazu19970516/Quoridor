@@ -60,13 +60,13 @@ function work_back_yellow(){
     ai1(root1)
   }else{
     startTime = performance.now();
+    console.log("黄色計算中")
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
 
   worker.onmessage = function(e){
-    console.log("黄色計算中")
     endTime = performance.now();
     console.log(endTime - startTime);
     var k = e.data
@@ -206,7 +206,7 @@ var enable_button = function(){
 document.onkeyup = keyup;
 function keyup(event){
 	//if(victory == 1 || victory == 2 || turn == PIECE_TYPE.BLUE)return false//cpu黄色のターンも動かせない----------
-  if(victory == 1 || victory == 2)return false
+  if(victory == 1 || victory == 2 || turn == PIECE_TYPE.YWLLOW)return false
   //up
 	if(event.which == 38){
 	if(turn === PIECE_TYPE.BLUE){
