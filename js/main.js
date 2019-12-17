@@ -31,41 +31,42 @@ function work_back_yellow(){
   // worker.addEventListener('error',(error) => {
   //   console.log(error);
   // });
+  // if(yellow_wall == 0){
+  //   if(blue_wall == 0){
+  //     work(wall,b1,b2,w1,w2,0)
+  //     var shortB = call_short(1)
+  //     var shortY = call_short(2)
+  //     if(shortB > shortY) victory = PIECE_TYPE.YELLOW
+  //     else victory = PIECE_TYPE.BLUE
+  //     show_result(victory);
+  //   }else{
+  //     var root1 = []
+  //     work(wall,b1,b2,w1,w2,3)
+  //     root1 = call()
+  //     ai1(root1)
+  //   }
+  // }else{
+  //   console.log("黄色計算中")
+  //   startTime = performance.now();
+  //   worker.postMessage({"board":board,"wall":wall,
+  //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
+  //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
+  // }
+
   if(yellow_wall == 0){
-    if(blue_wall == 0){
-      work(wall,b1,b2,w1,w2,0)
-      var shortB = call_short(1)
-      var shortY = call_short(2)
-      if(shortB > shortY) victory = PIECE_TYPE.YELLOW
-      else victory = PIECE_TYPE.BLUE
-      show_result(victory);
-    }else{
-      var root1 = []
-      work(wall,b1,b2,w1,w2,3)
-      root1 = call()
-      ai1(root1)
-    }
+    var root1 = []
+    work(wall,b1,b2,w1,w2,3)
+    root1 = call()
+    ai1(root1)
   }else{
-    console.log("黄色計算中")
     startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
 
-  // if(yellow_wall == 0){
-  //   var root1 = []
-  //   work(wall,b1,b2,w1,w2,3)
-  //   root1 = call()
-  //   ai1(root1)
-  // }else{
-  //   startTime = performance.now();
-  //   worker.postMessage({"board":board,"wall":wall,
-  //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
-  //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
-  // }
-  //
   worker.onmessage = function(e){
+    console.log("黄色計算中")
     endTime = performance.now();
     console.log(endTime - startTime);
     var k = e.data
@@ -376,7 +377,7 @@ update = function(){
     }else{
       show(piece);
       shift();
-      if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
+      //if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
       if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
     }
   }//else{alert("その行動はダメです " + turn);}
@@ -390,7 +391,7 @@ update_wall = function(){
   }
   show(piece);
   shift();
-  if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
+  //if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
   if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
 }
 //壁を置けるかの判定
@@ -457,6 +458,6 @@ window.onload = function(){
   x1 = 5; x2 = 9; y1 = 5; y2 = 1;
   blue_wall = 10; yellow_wall = 10;
   show(piece);
-  work_back();//---------------
+  //work_back();//---------------
 };
 })();
