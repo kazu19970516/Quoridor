@@ -226,7 +226,7 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
         }
         callBeforBoard(4,b1+2,b2,w1,w2,turn);
       }
-      if(blue > 0){//縦の壁
+      if(blue >= 0){//縦の壁
         for(var i = 1;i < n;i++){
           for(var j = 1;j < n;j++){
             if(node_wall[i - 1][j] != 3 && node_wall[i + 1][j] != 3 && node_wall[i][j] == 0){
@@ -376,7 +376,7 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
         callBeforBoard(3,b1,b2,w1-2,w2,turn);
       }
     }
-    if(yellow > 0){//縦の壁
+    if(yellow >= 0){//縦の壁
       for(var i = 1;i < n;i++){
         for(var j = 1;j < n;j++){
           if(node_wall[i - 1][j] != 3 && node_wall[i + 1][j] != 3 && node_wall[i][j] == 0){
