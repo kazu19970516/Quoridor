@@ -206,7 +206,7 @@ var enable_button = function(){
 document.onkeyup = keyup;
 function keyup(event){
 	//if(victory == 1 || victory == 2 || turn == PIECE_TYPE.BLUE)return false//cpu黄色のターンも動かせない----------
-  if(victory == 1 || victory == 2 || turn == PIECE_TYPE.YWLLOW)return false
+  if(victory == 1 || victory == 2  || turn == PIECE_TYPE.YWLLOW)return false
   //up
 	if(event.which == 38){
 	if(turn === PIECE_TYPE.BLUE){
