@@ -458,6 +458,7 @@ window.onload = function(){
   x1 = 5; x2 = 9; y1 = 5; y2 = 1;
   blue_wall = 10; yellow_wall = 10;
   show(piece);
+  console.log("1")
   work_back();//---------------
 };
 })();
