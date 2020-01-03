@@ -15,6 +15,8 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
     return 100
   }else if(yellow + 2 < blue){
     return shortY - shortB - blue
+  }else if(yellow - 2 > blue){
+    return shortY - shortB*2
   }else{
     return shortY - shortB
   }

@@ -114,7 +114,7 @@ function work_back(){
     ai1(root1)
   }else{
     startTime = performance.now();
-    console.log("黄色計算中")
+    console.log("緑色計算中")
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
