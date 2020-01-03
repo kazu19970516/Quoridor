@@ -60,7 +60,6 @@ function find_short(turn,k){
   if(turn == 2) x = 72;
   for(var i = 0;i < 9;i++){
     if(par[i + x] > 0){
-      goal_count++
       if(par[i + x] <= short){
         short = par[i + x];
         goal = i + x

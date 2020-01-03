@@ -18,7 +18,7 @@ var x1,x2,y1,y2,b1,b2,w1,w2;
 var blue_wall,yellow_wall;
 board = [];
 wall = [];
-
+var plancount
 function work_back_yellow(){
   var startTime = 0
   var endTime = 0
@@ -80,12 +80,7 @@ function work_back(){
   var endTime = 0
   if(window.Worker){
       var worker = new Worker('js/worker.js');
-  }else{
-    //window.alert("このブラウザではWeb Workersは利用できません")
   }
-  // worker.addEventListener('error',(error) => {
-  //   console.log(error);
-  // })
   // if(blue_wall == 0){
   //   if(yellow_wall == 0){
   //     work(wall,b1,b2,w1,w2,0)
@@ -107,7 +102,24 @@ function work_back(){
   //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
   //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   // }
-  if(blue_wall == 0){
+  if(plancount == 2){
+    var root = []
+    root[0] = 4
+    root[1] = 7
+    root[2] = 7
+    ai1(root)
+    plancount = 3
+  }else if(plancount == 1){
+    var root = []
+    root[0] = 4
+    root[1] = 5
+    root[2] = 7
+    ai1(root)
+    plancount = 2
+  }else if(plancount == 0){
+    ai1(0)
+    plancount = 1;
+  }else if(blue_wall == 0){
     var root1 = []
     work(wall,b1,b2,w1,w2,2)
     root1 = call()
@@ -125,12 +137,9 @@ function work_back(){
     var k = e.data
     ai1(k)
   }
-  //worker.postMessage([board,wall,b1,b2,w1,w2,turn,blue_wall,yellow_wall])
 }
 //up = 0,down = 1,reight = 2,left = 3,widewall = 4,hightwall = 5
 function ai1(k){
-  //alert(k[0] + " " + k[1] + " " + k[2])
-  //alert("青 "+k[3]+" 黄"+k[4])
     if(k[0] == 0){
       if(turn === PIECE_TYPE.BLUE){
        if(board[b2 - 1][b1] == PIECE_TYPE.YELLOW){
@@ -469,6 +478,7 @@ window.onload = function(){
   b1 = 5; b2 = 9; w1 = 5; w2 = 1;
   x1 = 5; x2 = 9; y1 = 5; y2 = 1;
   blue_wall = 10; yellow_wall = 10;
+  plancount = 0;
   show(piece);
   console.log("1")
   work_back();//---------------
