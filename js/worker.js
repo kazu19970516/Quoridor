@@ -23,7 +23,7 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
 }
 function evalChild(turn,child,value,type,k,j,i,bestX,bestY,alpha,beta){
   if(turn == 2){//^^^^^^^^^^^^^^^^^
-    if(child <= value){
+    if(child < value){
       value = child;
       beta = value;
       type = k
@@ -31,7 +31,7 @@ function evalChild(turn,child,value,type,k,j,i,bestX,bestY,alpha,beta){
       bestY = i;
     }
   }else{
-    if(child >= value){
+    if(child > value){
       value = child;
       alpha = value;
       type = k
