@@ -105,19 +105,21 @@ function work_back(){
   if(plancount == 2){
     var root = []
     root[0] = 4
-    root[1] = 7
+    root[1] = 8
     root[2] = 7
     ai1(root)
     plancount = 3
   }else if(plancount == 1){
     var root = []
     root[0] = 4
-    root[1] = 5
+    root[1] = 6
     root[2] = 7
     ai1(root)
     plancount = 2
   }else if(plancount == 0){
-    ai1(0)
+    var root = []
+    root[0] = 0
+    ai1(root)
     plancount = 1;
   }else if(blue_wall == 0){
     var root1 = []
