@@ -53,18 +53,18 @@ function work_back_yellow(){
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
 
-  if(yellow_wall == 0){
-    var root1 = []
-    work(wall,b1,b2,w1,w2,3)
-    root1 = call()
-    ai1(root1)
-  }else{
-    startTime = performance.now();
-    console.log("黄色計算中")
-    worker.postMessage({"board":board,"wall":wall,
-                        "b1":b1,"b2":b2,"w1":w1,"w2":w2,
-                        "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
-  }
+  // if(yellow_wall == 0){
+  //   var root1 = []
+  //   work(wall,b1,b2,w1,w2,3)
+  //   root1 = call()
+  //   ai1(root1)
+  // }else{
+  //   startTime = performance.now();
+  //   console.log("黄色計算中")
+  //   worker.postMessage({"board":board,"wall":wall,
+  //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
+  //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
+  // }
 
   worker.onmessage = function(e){
     endTime = performance.now();
