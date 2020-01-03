@@ -12,12 +12,12 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
   shortB = call_short(1)
   shortY = call_short(2)
   //var x = Math.floor(Math.random()*8) + 1
-  var x = Math.floor(Math.random()*10) + 1
+  //var x = Math.floor(Math.random()*10) + 1
   //if(blue > yellow + 2) return shortY - shortB - blue
   if(shortY == 0){
     return 100
   }else if(yellow + 2 < blue){
-    return shortY - shortB - blue -x
+    return shortY - shortB - blue
   }else{
     return shortY - shortB
   }//変更点--------------------
@@ -94,6 +94,7 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
   }
 
   if(turn == 1){
+    //up
     if(b2 - 1 > 0){
       if(node_board[b2-1][b1] != 2 && node_wall[b2-1][b1] != 4 && node_wall[b2-1][b1-1] != 4){
         node_board[b2][b1] = 0;
@@ -276,6 +277,7 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
       }
     }
   }else{
+    //down
     if(w2 < n){
       if(node_board[w2+1][w1] != 1 && node_wall[w2][w1] != 4 && node_wall[w2][w1-1] != 4){
         node_board[w2][w1] = 0;;
