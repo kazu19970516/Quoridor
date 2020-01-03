@@ -189,7 +189,6 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
           return value;
         }
         callBeforBoard(3,b1-1,b2,w1,w2,turn);
-      }
     }else if(b1 - 2 > 0 && node_board[b2][b1-1] == 2 && node_wall[b2-1][b1-2] != 3 && node_wall[b2-1][b1-2] != 3 && node_wall[b2-1][b1-1] != 3 && node_wall[b2][b1-1] != 3){
       node_board[b2][b1] = 0;
       node_board[b2][b1-2] = turn;
