@@ -81,27 +81,6 @@ function work_back(){
   if(window.Worker){
       var worker = new Worker('js/worker.js');
   }
-  // if(blue_wall == 0){
-  //   if(yellow_wall == 0){
-  //     work(wall,b1,b2,w1,w2,0)
-  //     var shortB = call_short(1)
-  //     var shortY = call_short(2)
-  //     if(shortB > shortY) victory = PIECE_TYPE.YELLOW
-  //     else victory = PIECE_TYPE.BLUE
-  //     show_result(victory);
-  //   }else{
-  //     var root1 = []
-  //     work(wall,b1,b2,w1,w2,2)
-  //     root1 = call()
-  //     ai1(root1)
-  //   }
-  // }else{
-  //   console.log("緑色計算中")
-  //   startTime = performance.now();
-  //   worker.postMessage({"board":board,"wall":wall,
-  //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
-  //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
-  // }
   if(plancount == 4){
     var root = []
     root[0] = 4
@@ -122,23 +101,63 @@ function work_back(){
     ai1(root)
     plancount++;
   }else if(blue_wall == 0){
-    var root1 = []
-    work(wall,b1,b2,w1,w2,2)
-    root1 = call()
-    ai1(root1)
+    if(yellow_wall == 0){
+      work(wall,b1,b2,w1,w2,0)
+      var shortB = call_short(1)
+      var shortY = call_short(2)
+      if(shortB > shortY) victory = PIECE_TYPE.YELLOW
+      else victory = PIECE_TYPE.BLUE
+      show_result(victory);
+    }else{
+      var root1 = []
+      work(wall,b1,b2,w1,w2,2)
+      root1 = call()
+      ai1(root1)
+    }
   }else{
-    startTime = performance.now();
     console.log("緑色計算中")
+    startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
-  worker.onmessage = function(e){
-    endTime = performance.now();
-    console.log(endTime - startTime);
-    var k = e.data
-    ai1(k)
-  }
+  // if(plancount == 4){
+  //   var root = []
+  //   root[0] = 4
+  //   root[1] = 8
+  //   root[2] = 6
+  //   ai1(root)
+  //   plancount = 5
+  // }else if(plancount == 3){
+  //   var root = []
+  //   root[0] = 4
+  //   root[1] = 6
+  //   root[2] = 6
+  //   ai1(root)
+  //   plancount = 4
+  // }else if(plancount == 0 || plancount == 1 || plancount == 2){
+  //   var root = []
+  //   root[0] = 0
+  //   ai1(root)
+  //   plancount++;
+  // }else if(blue_wall == 0){
+  //   var root1 = []
+  //   work(wall,b1,b2,w1,w2,2)
+  //   root1 = call()
+  //   ai1(root1)
+  // }else{
+  //   startTime = performance.now();
+  //   console.log("緑色計算中")
+  //   worker.postMessage({"board":board,"wall":wall,
+  //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
+  //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
+  // }
+  // worker.onmessage = function(e){
+  //   endTime = performance.now();
+  //   console.log(endTime - startTime);
+  //   var k = e.data
+  //   ai1(k)
+  // }
 }
 //up = 0,down = 1,reight = 2,left = 3,widewall = 4,hightwall = 5
 function ai1(k){
@@ -401,7 +420,7 @@ update = function(){
       show(piece);
       shift();
       if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
-      //if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
+      if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
     }
   }//else{alert("その行動はダメです " + turn);}
 }
@@ -415,7 +434,7 @@ update_wall = function(){
   show(piece);
   shift();
   if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
-  //if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
+  if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
 }
 //壁を置けるかの判定
 chk_wall = function(y,x,HW){
