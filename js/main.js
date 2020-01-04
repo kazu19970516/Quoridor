@@ -24,10 +24,7 @@ function work_back_yellow(){
   var endTime = 0
   if(window.Worker){
       var worker = new Worker('js/worker-yellow.js');
-  }else{
-    //window.alert("このブラウザではWeb Workersは利用できません")
   }
-
   // worker.addEventListener('error',(error) => {
   //   console.log(error);
   // });
@@ -81,26 +78,27 @@ function work_back(){
   if(window.Worker){
       var worker = new Worker('js/worker.js');
   }
-  if(plancount == 4){
-    var root = []
-    root[0] = 4
-    root[1] = 8
-    root[2] = 6
-    ai1(root)
-    plancount = 5
-  }else if(plancount == 3){
-    var root = []
-    root[0] = 4
-    root[1] = 6
-    root[2] = 6
-    ai1(root)
-    plancount = 4
-  }else if(plancount == 0 || plancount == 1 || plancount == 2){
-    var root = []
-    root[0] = 0
-    ai1(root)
-    plancount++;
-  }else if(blue_wall == 0){
+  // if(plancount == 4){
+  //   var root = []
+  //   root[0] = 4
+  //   root[1] = 8
+  //   root[2] = 6
+  //   ai1(root)
+  //   plancount = 5
+  // }else if(plancount == 3){
+  //   var root = []
+  //   root[0] = 4
+  //   root[1] = 6
+  //   root[2] = 6
+  //   ai1(root)
+  //   plancount = 4
+  // }else if(plancount == 0 || plancount == 1 || plancount == 2){
+  //   var root = []
+  //   root[0] = 0
+  //   ai1(root)
+  //   plancount++;
+  // }else
+  if(blue_wall == 0){
     if(yellow_wall == 0){
       work(wall,b1,b2,w1,w2,0)
       var shortB = call_short(1)
