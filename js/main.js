@@ -152,12 +152,12 @@ function work_back(){
   //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
   //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   // }
-  // worker.onmessage = function(e){
-  //   endTime = performance.now();
-  //   console.log(endTime - startTime);
-  //   var k = e.data
-  //   ai1(k)
-  // }
+  worker.onmessage = function(e){
+    endTime = performance.now();
+    console.log(endTime - startTime);
+    var k = e.data
+    ai1(k)
+  }
 }
 //up = 0,down = 1,reight = 2,left = 3,widewall = 4,hightwall = 5
 function ai1(k){
