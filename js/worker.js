@@ -125,52 +125,6 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
         callBeforBoard(1,b1,b2-2,w1,w2,turn);
       }
     }
-    if(blue > 0){//横の壁縦の壁
-      for(var i = 1;i < n;i++){
-        for(var j = 1;j < n;j++){
-          if(node_wall[i][j-1] != 4 && node_wall[i][j+1] != 4 && node_wall[i][j] == 0){
-            node_wall[i][j] = 4;
-            if(work(node_wall,b1,b2,w1,w2,0)){
-                child = miniMax(b1,b2,w1,w2,3-turn,blue-1,yellow,alpha,beta,level-1)
-                a = evalChild(turn,child,value,type,4,j,i,bestX,bestY,alpha,beta)
-                value = a[0]
-                type = a[1]
-                bestX = a[2]
-                bestY = a[3]
-                alpha = a[4]
-                beta = a[5]
-                if(value < alpha){
-                  callBeforWall(turn,i,j)
-                  return value;
-                }
-                callBeforWall(turn,i,j)
-            }else{
-              node_wall[i][j] = 0;
-            }
-          }
-          if(node_wall[i - 1][j] != 3 && node_wall[i + 1][j] != 3 && node_wall[i][j] == 0){
-            node_wall[i][j] = 3;
-            if(work(node_wall,b1,b2,w1,w2,0)){
-                child = miniMax(b1,b2,w1,w2,3-turn,blue-1,yellow,alpha,beta,level-1)
-                a = evalChild(turn,child,value,type,5,j,i,bestX,bestY,alpha,beta)
-                value = a[0]
-                type = a[1]
-                bestX = a[2]
-                bestY = a[3]
-                alpha = a[4]
-                beta = a[5]
-                if(value < alpha){
-                  callBeforWall(turn,i,j)
-                  return value;
-                }
-                callBeforWall(turn,i,j)
-            }else{
-              node_wall[i][j] = 0;
-            }
-          }
-        }
-      }
-    }
     //left
     if(b1 - 1 > 0){
       if(node_board[b2][b1-1] != 2 && node_wall[b2-1][b1-1] != 3 && node_wall[b2][b1-1] != 3){
@@ -271,6 +225,52 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
           return value;
         }
         callBeforBoard(2,b1,b2+2,w1,w2,turn);
+      }
+    }
+    if(blue > 0){//横の壁縦の壁
+      for(var i = 1;i < n;i++){
+        for(var j = 1;j < n;j++){
+          if(node_wall[i][j-1] != 4 && node_wall[i][j+1] != 4 && node_wall[i][j] == 0){
+            node_wall[i][j] = 4;
+            if(work(node_wall,b1,b2,w1,w2,0)){
+                child = miniMax(b1,b2,w1,w2,3-turn,blue-1,yellow,alpha,beta,level-1)
+                a = evalChild(turn,child,value,type,4,j,i,bestX,bestY,alpha,beta)
+                value = a[0]
+                type = a[1]
+                bestX = a[2]
+                bestY = a[3]
+                alpha = a[4]
+                beta = a[5]
+                if(value < alpha){
+                  callBeforWall(turn,i,j)
+                  return value;
+                }
+                callBeforWall(turn,i,j)
+            }else{
+              node_wall[i][j] = 0;
+            }
+          }
+          if(node_wall[i - 1][j] != 3 && node_wall[i + 1][j] != 3 && node_wall[i][j] == 0){
+            node_wall[i][j] = 3;
+            if(work(node_wall,b1,b2,w1,w2,0)){
+                child = miniMax(b1,b2,w1,w2,3-turn,blue-1,yellow,alpha,beta,level-1)
+                a = evalChild(turn,child,value,type,5,j,i,bestX,bestY,alpha,beta)
+                value = a[0]
+                type = a[1]
+                bestX = a[2]
+                bestY = a[3]
+                alpha = a[4]
+                beta = a[5]
+                if(value < alpha){
+                  callBeforWall(turn,i,j)
+                  return value;
+                }
+                callBeforWall(turn,i,j)
+            }else{
+              node_wall[i][j] = 0;
+            }
+          }
+        }
       }
     }
   }else{
