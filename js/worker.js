@@ -11,8 +11,8 @@ importScripts("wall.js")
 function eval(b1,b2,w1,w2,turn,blue,yellow){
   shortB = call_short(1)
   shortY = call_short(2)
-  if(shortY == 0){
-    return -100
+  if(shortB == 0){
+    return 100
   }else if(yellow + 2 <= blue){
     return shortY - shortB - blue
   }else{
@@ -274,84 +274,38 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
       }
     }
   }else{
-    //down
-    if(w2 < n){
-      if(node_board[w2+1][w1] != 1 && node_wall[w2][w1] != 4 && node_wall[w2][w1-1] != 4){
-        node_board[w2][w1] = 0;;
-        node_board[w2+1][w1] = turn;
-        work(node_wall,b1,b2,w1,w2,0)
-        child = miniMax(b1,b2,w1,w2+1,3-turn,blue,yellow,alpha,beta,level-1)
-        a = evalChild(turn,child,value,type,1,99,99,bestX,bestY,alpha,beta)
-        value = a[0]
-        type = a[1]
-        alpha = a[4]
-        beta = a[5]
-        if(value < alpha){
-          callBeforBoard(2,b1,b2,w1,w2+1,turn);
-          return value;
-        }
-        callBeforBoard(2,b1,b2,w1,w2+1,turn);
-      }else if(w2 + 1 < n && node_board[w2+1][w1] == 1 && node_wall[w2+1][w1] != 4 && node_wall[w2+1][w1-1] != 4 && node_wall[w2][w1] != 4 && node_wall[w2][w1-1] != 4){
+    //up
+    if(w2 - 1 > 0){
+      if(node_board[w2-1][w1] != 1 && node_wall[w2-1][w1] != 4 && node_wall[w2-1][w1-1] != 4){
         node_board[w2][w1] = 0;
-        node_board[w2+2][w1] = turn;
+        node_board[w2-1][w1] = turn;
         work(node_wall,b1,b2,w1,w2,0)
-        child = miniMax(b1,b2,w1,w2+2,3-turn,blue,yellow,alpha,beta,level-1)
-        a = evalChild(turn,child,value,type,1,99,99,bestX,bestY,alpha,beta)
+        child = miniMax(b1,b2,w1,w2-1,3-turn,blue,yellow,alpha,beta,level-1)
+        a = evalChild(turn,child,value,type,0,99,99,bestX,bestY,alpha,beta)
         value = a[0]
         type = a[1]
         alpha = a[4]
         beta = a[5]
         if(value < alpha){
-          callBeforBoard(2,b1,b2,w1,w2+2,turn);
+          callBeforBoard(1,b1,b2,w1,w2-1,turn);
           return value;
         }
-        callBeforBoard(2,b1,b2,w1,w2+2,turn);
-      }
-    }
-    if(yellow > 0){//縦の壁
-      for(var i = 1;i < n;i++){
-        for(var j = 1;j < n;j++){
-          if(node_wall[i][j-1] != 4 && node_wall[i][j+1] != 4 && node_wall[i][j] == 0){
-            node_wall[i][j] = 4;
-            if(work(node_wall,b1,b2,w1,w2,0)){
-                child = miniMax(b1,b2,w1,w2,3-turn,blue,yellow-1,alpha,beta,level-1)
-                a = evalChild(turn,child,value,type,4,j,i,bestX,bestY,alpha,beta)
-                value = a[0]
-                type = a[1]
-                bestX = a[2]
-                bestY = a[3]
-                alpha = a[4]
-                beta = a[5]
-                if(value < alpha){
-                  callBeforWall(turn,i,j)
-                  return value;
-                }
-                callBeforWall(turn,i,j)
-            }else{
-              node_wall[i][j] = 0;
-            }
-          }
-          if(node_wall[i - 1][j] != 3 && node_wall[i + 1][j] != 3 && node_wall[i][j] == 0){
-            node_wall[i][j] = 3;
-            if(work(node_wall,b1,b2,w1,w2,0)){
-                child = miniMax(b1,b2,w1,w2,3-turn,blue,yellow-1,alpha,beta,level-1)
-                a = evalChild(turn,child,value,type,5,j,i,bestX,bestY,alpha,beta)
-                value = a[0]
-                type = a[1]
-                bestX = a[2]
-                bestY = a[3]
-                alpha = a[4]
-                beta = a[5]
-                if(value < alpha){
-                  callBeforWall(turn,i,j)
-                  return value;
-                }
-                callBeforWall(turn,i,j)
-            }else{
-              node_wall[i][j] = 0;
-            }
-          }
+        callBeforBoard(1,b1,b2,w1,w2-1,turn);
+      }else if(w2 - 2 > 0 && node_board[w2-1][w1] == 1 && node_wall[w2-2][w1] != 4 && node_wall[w2-2][w1-1] != 4 && node_wall[w2-1][w1] != 4 && node_wall[w2-1][w1-1] != 4){
+        node_board[w2][w1] = 0;
+        node_board[w2-2][w1] = turn;
+        work(node_wall,b1,b2,w1,w2,0)
+        child = miniMax(b1,b2,w1,w2-2,3-turn,blue,yellow,alpha,beta,level-1)
+        a = evalChild(turn,child,value,type,0,99,99,bestX,bestY,alpha,beta)
+        value = a[0]
+        type = a[1]
+        alpha = a[4]
+        beta = a[5]
+        if(value < alpha){
+          callBeforBoard(1,b1,b2,w1,w2-2,turn);
+          return value;
         }
+        callBeforBoard(1,b1,b2,w1,w2-2,turn);
       }
     }
     //left
@@ -422,38 +376,84 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
         callBeforBoard(4,b1,b2,w1+2,w2,turn);
       }
     }
-    //up
-    if(w2 - 1 > 0){
-      if(node_board[w2-1][w1] != 1 && node_wall[w2-1][w1] != 4 && node_wall[w2-1][w1-1] != 4){
-        node_board[w2][w1] = 0;
-        node_board[w2-1][w1] = turn;
+    if(yellow > 0){//縦の壁
+      for(var i = 1;i < n;i++){
+        for(var j = 1;j < n;j++){
+          if(node_wall[i][j-1] != 4 && node_wall[i][j+1] != 4 && node_wall[i][j] == 0){
+            node_wall[i][j] = 4;
+            if(work(node_wall,b1,b2,w1,w2,0)){
+                child = miniMax(b1,b2,w1,w2,3-turn,blue,yellow-1,alpha,beta,level-1)
+                a = evalChild(turn,child,value,type,4,j,i,bestX,bestY,alpha,beta)
+                value = a[0]
+                type = a[1]
+                bestX = a[2]
+                bestY = a[3]
+                alpha = a[4]
+                beta = a[5]
+                if(value < alpha){
+                  callBeforWall(turn,i,j)
+                  return value;
+                }
+                callBeforWall(turn,i,j)
+            }else{
+              node_wall[i][j] = 0;
+            }
+          }
+          if(node_wall[i - 1][j] != 3 && node_wall[i + 1][j] != 3 && node_wall[i][j] == 0){
+            node_wall[i][j] = 3;
+            if(work(node_wall,b1,b2,w1,w2,0)){
+                child = miniMax(b1,b2,w1,w2,3-turn,blue,yellow-1,alpha,beta,level-1)
+                a = evalChild(turn,child,value,type,5,j,i,bestX,bestY,alpha,beta)
+                value = a[0]
+                type = a[1]
+                bestX = a[2]
+                bestY = a[3]
+                alpha = a[4]
+                beta = a[5]
+                if(value < alpha){
+                  callBeforWall(turn,i,j)
+                  return value;
+                }
+                callBeforWall(turn,i,j)
+            }else{
+              node_wall[i][j] = 0;
+            }
+          }
+        }
+      }
+    }
+    //down
+    if(w2 < n){
+      if(node_board[w2+1][w1] != 1 && node_wall[w2][w1] != 4 && node_wall[w2][w1-1] != 4){
+        node_board[w2][w1] = 0;;
+        node_board[w2+1][w1] = turn;
         work(node_wall,b1,b2,w1,w2,0)
-        child = miniMax(b1,b2,w1,w2-1,3-turn,blue,yellow,alpha,beta,level-1)
-        a = evalChild(turn,child,value,type,0,99,99,bestX,bestY,alpha,beta)
+        child = miniMax(b1,b2,w1,w2+1,3-turn,blue,yellow,alpha,beta,level-1)
+        a = evalChild(turn,child,value,type,1,99,99,bestX,bestY,alpha,beta)
         value = a[0]
         type = a[1]
         alpha = a[4]
         beta = a[5]
         if(value < alpha){
-          callBeforBoard(1,b1,b2,w1,w2-1,turn);
+          callBeforBoard(2,b1,b2,w1,w2+1,turn);
           return value;
         }
-        callBeforBoard(1,b1,b2,w1,w2-1,turn);
-      }else if(w2 - 2 > 0 && node_board[w2-1][w1] == 1 && node_wall[w2-2][w1] != 4 && node_wall[w2-2][w1-1] != 4 && node_wall[w2-1][w1] != 4 && node_wall[w2-1][w1-1] != 4){
+        callBeforBoard(2,b1,b2,w1,w2+1,turn);
+      }else if(w2 + 1 < n && node_board[w2+1][w1] == 1 && node_wall[w2+1][w1] != 4 && node_wall[w2+1][w1-1] != 4 && node_wall[w2][w1] != 4 && node_wall[w2][w1-1] != 4){
         node_board[w2][w1] = 0;
-        node_board[w2-2][w1] = turn;
+        node_board[w2+2][w1] = turn;
         work(node_wall,b1,b2,w1,w2,0)
-        child = miniMax(b1,b2,w1,w2-2,3-turn,blue,yellow,alpha,beta,level-1)
-        a = evalChild(turn,child,value,type,0,99,99,bestX,bestY,alpha,beta)
+        child = miniMax(b1,b2,w1,w2+2,3-turn,blue,yellow,alpha,beta,level-1)
+        a = evalChild(turn,child,value,type,1,99,99,bestX,bestY,alpha,beta)
         value = a[0]
         type = a[1]
         alpha = a[4]
         beta = a[5]
         if(value < alpha){
-          callBeforBoard(1,b1,b2,w1,w2-2,turn);
+          callBeforBoard(2,b1,b2,w1,w2+2,turn);
           return value;
         }
-        callBeforBoard(1,b1,b2,w1,w2-2,turn);
+        callBeforBoard(2,b1,b2,w1,w2+2,turn);
       }
     }
   }
