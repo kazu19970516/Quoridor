@@ -15,12 +15,11 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
     return 100
   }else if(yellow + 2 <= blue){
     return shortY - shortB - blue
+  }else if(yellow - 3 > blue){
+    return -shortB + blue
   }else{
     return shortY - shortB
   }
-  // else if(yellow - 3 > blue){
-  //   return -shortB + blue
-  // }
 }
 function evalChild(turn,child,value,type,k,j,i,bestX,bestY,alpha,beta){
   if(turn == 2){//^^^^^^^^^^^^^^^^^
