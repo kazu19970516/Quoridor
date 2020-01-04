@@ -70,9 +70,9 @@ function work_back_yellow(){
     endTime = performance.now();
     console.log(endTime - startTime);
     var k = e.data
+    worker.terminate();
     ai1(k)
   }
-  //worker.postMessage([board,wall,b1,b2,w1,w2,turn,blue_wall,yellow_wall])
 }
 
 function work_back(){
@@ -156,6 +156,7 @@ function work_back(){
     endTime = performance.now();
     console.log(endTime - startTime);
     var k = e.data
+    worker.terminate();
     ai1(k)
   }
 }
