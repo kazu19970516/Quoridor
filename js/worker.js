@@ -11,8 +11,8 @@ importScripts("wall.js")
 function eval(b1,b2,w1,w2,turn,blue,yellow){
   shortB = call_short(1)
   shortY = call_short(2)
-  if(shortB == 0){
-    return 100
+  if(shortY == 0){
+    return -100
   }else if(yellow + 2 <= blue){
     return shortY - shortB - blue
   }else{
