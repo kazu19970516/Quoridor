@@ -97,20 +97,6 @@ function work_back(){
     root[0] = 0
     ai1(root)
     plancount++;
-  }else if(blue_wall == 0){
-    if(yellow_wall == 0){
-      work(wall,b1,b2,w1,w2,0)
-      var shortB = call_short(1)
-      var shortY = call_short(2)
-      if(shortB > shortY) victory = PIECE_TYPE.YELLOW
-      else victory = PIECE_TYPE.BLUE
-      show_result(victory);
-    }else{
-      var root1 = []
-      work(wall,b1,b2,w1,w2,2)
-      root1 = call()
-      ai1(root1)
-    }
   }else{
     console.log("緑色計算中")
     startTime = performance.now();
@@ -118,6 +104,21 @@ function work_back(){
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
+  // else if(blue_wall == 0){
+  //   if(yellow_wall == 0){
+  //     work(wall,b1,b2,w1,w2,0)
+  //     var shortB = call_short(1)
+  //     var shortY = call_short(2)
+  //     if(shortB > shortY) victory = PIECE_TYPE.YELLOW
+  //     else victory = PIECE_TYPE.BLUE
+  //     show_result(victory);
+  //   }else{
+  //     var root1 = []
+  //     work(wall,b1,b2,w1,w2,2)
+  //     root1 = call()
+  //     ai1(root1)
+  //   }
+  // }
   // if(plancount == 4){
   //   var root = []
   //   root[0] = 4
