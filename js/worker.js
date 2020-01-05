@@ -25,12 +25,12 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
   shortY = call_short(2)
   if(shortB == 0){
     return 100
+  }else if(yellow + 2 <= blue){
+    return shortY - shortB - blue
   }else{
-    return shortY - shortB - curve(blue,yellow)
+    // return shortY - shortB - curve(blue,yellow)
+    return shortY - shortB
   }
-  // else if(yellow + 2 <= blue){
-  //   return shortY - shortB - blue
-  // }
   // else if(yellow - 3 > blue){
   //   return -shortB + blue
   // }
