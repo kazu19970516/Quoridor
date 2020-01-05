@@ -473,6 +473,7 @@ chk_wall = function(y,x,HW){
   wall[y][x] = 0;
   return false;
 }
+
 //読み込まれたときに実行する
 window.onload = function(){
   piece =[document.getElementById("cell"),
