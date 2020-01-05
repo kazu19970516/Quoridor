@@ -76,14 +76,14 @@ function work_back(){
   var startTime = 0
   var endTime = 0
   if(window.Worker){
-      var worker = new Worker('js/worker.js');
-  }else{
+    var worker = new Worker('js/worker.js');
     console.log("緑色計算中")
     startTime = performance.now();
     worker.postMessage({"board":board,"wall":wall,
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
+
   // if(plancount == 4){
   //   var root = []
   //   root[0] = 4
@@ -151,13 +151,6 @@ function work_back(){
   //                       "b1":b1,"b2":b2,"w1":w1,"w2":w2,
   //                       "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   // }
-  worker.onmessage = function(e){
-    endTime = performance.now();
-    console.log(endTime - startTime);
-    var k = e.data
-    worker.terminate();
-    ai1(k)
-  }
 }
 //up = 0,down = 1,reight = 2,left = 3,widewall = 4,hightwall = 5
 function ai1(k){
@@ -420,7 +413,7 @@ update = function(){
       show(piece);
       shift();
       if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
-      //if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
+      if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
     }
   }//else{alert("その行動はダメです " + turn);}
 }
@@ -434,7 +427,7 @@ update_wall = function(){
   show(piece);
   shift();
   if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
-  //if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
+  if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
 }
 //壁を置けるかの判定
 chk_wall = function(y,x,HW){
