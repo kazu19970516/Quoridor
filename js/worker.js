@@ -11,11 +11,11 @@ importScripts("wall.js")
 function curve(b,y){
   var xx = b - y;
   if(xx > 2){
-    return 12
+    return 2
   }else if(xx < -2){
-    return -12
+    return -2
   }else{
-    var yy = ((xx * xx * xx) / 2) + 4 * xx;
+    var yy = (xx * xx * xx) / 4;
     return yy
   }
 }
@@ -25,12 +25,12 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
   shortY = call_short(2)
   if(shortB == 0){
     return 100
-  }else if(yellow + 2 <= blue){
-    return shortY - shortB - blue
   }else{
-    // return shortY - shortB - curve(blue,yellow)
-    return shortY - shortB
+    return shortY - shortB - curve(blue,yellow)
   }
+  // else if(yellow + 2 <= blue){
+  //   return shortY - shortB - blue
+  // }
   // else if(yellow - 3 > blue){
   //   return -shortB + blue
   // }

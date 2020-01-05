@@ -77,26 +77,6 @@ function work_back(){
   var endTime = 0
   if(window.Worker){
       var worker = new Worker('js/worker.js');
-  }
-  if(plancount == 4){
-    var root = []
-    root[0] = 4
-    root[1] = 8
-    root[2] = 6
-    ai1(root)
-    plancount = 5
-  }else if(plancount == 3){
-    var root = []
-    root[0] = 4
-    root[1] = 6
-    root[2] = 6
-    ai1(root)
-    plancount = 4
-  }else if(plancount == 0 || plancount == 1 || plancount == 2){
-    var root = []
-    root[0] = 0
-    ai1(root)
-    plancount++;
   }else{
     console.log("緑色計算中")
     startTime = performance.now();
@@ -104,6 +84,27 @@ function work_back(){
                         "b1":b1,"b2":b2,"w1":w1,"w2":w2,
                         "turn":turn,"blue_wall":blue_wall,"yellow_wall":yellow_wall})
   }
+  // if(plancount == 4){
+  //   var root = []
+  //   root[0] = 4
+  //   root[1] = 8
+  //   root[2] = 6
+  //   ai1(root)
+  //   plancount = 5
+  // }else if(plancount == 3){
+  //   var root = []
+  //   root[0] = 4
+  //   root[1] = 6
+  //   root[2] = 6
+  //   ai1(root)
+  //   plancount = 4
+  // }else if(plancount == 0 || plancount == 1 || plancount == 2){
+  //   var root = []
+  //   root[0] = 0
+  //   ai1(root)
+  //   plancount++;
+  // }
+
   // else if(blue_wall == 0){
   //   if(yellow_wall == 0){
   //     work(wall,b1,b2,w1,w2,0)
