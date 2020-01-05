@@ -488,7 +488,6 @@ onmessage = function(event){
   turn = data.turn;
   blue = data.blue_wall;
   yellow = data.yellow_wall;
-  aaa
   var result = miniMax(b1,b2,w1,w2,turn,blue,yellow,-9999,9999,SEARCH_LEVEL);
   postMessage(result)
 }
