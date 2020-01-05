@@ -78,27 +78,26 @@ function work_back(){
   if(window.Worker){
       var worker = new Worker('js/worker.js');
   }
-  // if(plancount == 4){
-  //   var root = []
-  //   root[0] = 4
-  //   root[1] = 8
-  //   root[2] = 6
-  //   ai1(root)
-  //   plancount = 5
-  // }else if(plancount == 3){
-  //   var root = []
-  //   root[0] = 4
-  //   root[1] = 6
-  //   root[2] = 6
-  //   ai1(root)
-  //   plancount = 4
-  // }else if(plancount == 0 || plancount == 1 || plancount == 2){
-  //   var root = []
-  //   root[0] = 0
-  //   ai1(root)
-  //   plancount++;
-  // }else
-  if(blue_wall == 0){
+  if(plancount == 4){
+    var root = []
+    root[0] = 4
+    root[1] = 8
+    root[2] = 6
+    ai1(root)
+    plancount = 5
+  }else if(plancount == 3){
+    var root = []
+    root[0] = 4
+    root[1] = 6
+    root[2] = 6
+    ai1(root)
+    plancount = 4
+  }else if(plancount == 0 || plancount == 1 || plancount == 2){
+    var root = []
+    root[0] = 0
+    ai1(root)
+    plancount++;
+  }else if(blue_wall == 0){
     if(yellow_wall == 0){
       work(wall,b1,b2,w1,w2,0)
       var shortB = call_short(1)
@@ -419,7 +418,7 @@ update = function(){
       show(piece);
       shift();
       if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-----------------
-      if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
+      //if(turn === PIECE_TYPE.YELLOW && victory == null)work_back_yellow()
     }
   }//else{alert("その行動はダメです " + turn);}
 }
@@ -433,7 +432,7 @@ update_wall = function(){
   show(piece);
   shift();
   if(turn === PIECE_TYPE.BLUE && victory == null) work_back();//-------------------
-  if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
+  //if(turn === PIECE_TYPE.YELLOW && victory == null) work_back_yellow();
 }
 //壁を置けるかの判定
 chk_wall = function(y,x,HW){
@@ -497,7 +496,7 @@ window.onload = function(){
   board[9][5] = PIECE_TYPE.BLUE;
   b1 = 5; b2 = 9; w1 = 5; w2 = 1;
   x1 = 5; x2 = 9; y1 = 5; y2 = 1;
-  blue_wall = 8; yellow_wall = 10;
+  blue_wall = 10; yellow_wall = 10;
   plancount = 0;
   show(piece);
   console.log("1")
