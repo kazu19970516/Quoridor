@@ -1,7 +1,7 @@
 var node_wall = []
 var node_board = []
 var n = 9;
-var SEARCH_LEVEL = 1
+var SEARCH_LEVEL = 2
 var x,y,wx,wy,blue,yellow;
 var shortB
 var shortY
@@ -26,7 +26,7 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
   if(shortB == 0){
     return 100
   }else{
-    return shortY - shortB
+    return shortY - shortB - curve(blue - yellow)
   }
   // else if(yellow + 2 <= blue){
   //   return shortY - shortB - blue
