@@ -8,32 +8,22 @@ var shortY
 var k = 0
 importScripts("wall.js")
 
-function curve(b,y){
-  var xx = b - y;
-  if(xx > 2){
-    return 2
-  }else if(xx < -2){
-    return -2
-  }else{
-    var yy = (xx * xx * xx) / 4;
-    return yy
-  }
-}
 //評価する
 function eval(b1,b2,w1,w2,turn,blue,yellow){
   shortB = call_short(1)
   shortY = call_short(2)
   if(shortB == 0){
     return 100
+  }else if(yellow + 2 <= blue){
+    return shortY -shortB*2 - blue
   }else{
-    return shortY - shortB - curve(blue - yellow)
+    return shortY - shortB
   }
+  //２bann
   // else if(yellow + 2 <= blue){
-  //   return shortY - shortB - blue
+  //   return shortY -shortB - blue
   // }
-  // else if(yellow - 3 > blue){
-  //   return -shortB + blue
-  // }
+  //3bann
 }
 function evalChild(turn,child,value,type,k,j,i,bestX,bestY,alpha,beta){
   if(turn == 2){//^^^^^^^^^^^^^^^^^

@@ -17,9 +17,6 @@ function eval(b1,b2,w1,w2,turn,blue,yellow){
   }else{
     return shortB - shortY
   }
-  // else if(blue + 2 < yellow){
-  //   return shortB - shortY - yellow
-  // }
 }
 function evalChild(turn,child,value,type,k,j,i,bestX,bestY,alpha,beta){
   //alert(child + " " + value + " " + beta + " " + alpha)
@@ -308,6 +305,52 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
         callBeforBoard(2,b1,b2,w1,w2+2,turn);
       }
     }
+    if(yellow >= 0){//縦の壁
+      for(var i = 1;i < n;i++){
+        for(var j = 1;j < n;j++){
+          if(node_wall[i][j-1] != 4 && node_wall[i][j+1] != 4 && node_wall[i][j] == 0){
+            node_wall[i][j] = 4;
+            if(work(node_wall,b1,b2,w1,w2,0)){
+                child = miniMax(b1,b2,w1,w2,3-turn,blue,yellow-1,alpha,beta,level-1)
+                a = evalChild(turn,child,value,type,4,j,i,bestX,bestY,alpha,beta)
+                value = a[0]
+                type = a[1]
+                bestX = a[2]
+                bestY = a[3]
+                alpha = a[4]
+                beta = a[5]
+                if(value < alpha){
+                  callBeforWall(turn,i,j)
+                  return value;
+                }
+                callBeforWall(turn,i,j)
+            }else{
+              node_wall[i][j] = 0;
+            }
+          }
+          if(node_wall[i - 1][j] != 3 && node_wall[i + 1][j] != 3 && node_wall[i][j] == 0){
+            node_wall[i][j] = 3;
+            if(work(node_wall,b1,b2,w1,w2,0)){
+                child = miniMax(b1,b2,w1,w2,3-turn,blue,yellow-1,alpha,beta,level-1)
+                a = evalChild(turn,child,value,type,5,j,i,bestX,bestY,alpha,beta)
+                value = a[0]
+                type = a[1]
+                bestX = a[2]
+                bestY = a[3]
+                alpha = a[4]
+                beta = a[5]
+                if(value < alpha){
+                  callBeforWall(turn,i,j)
+                  return value;
+                }
+                callBeforWall(turn,i,j)
+            }else{
+              node_wall[i][j] = 0;
+            }
+          }
+        }
+      }
+    }
     //right
     if(w1 < n){
       if(node_board[w2][w1+1] != 1 && node_wall[w2-1][w1] != 3 && node_wall[w2][w1] != 3){
@@ -374,52 +417,6 @@ function miniMax(b1,b2,w1,w2,turn,blue,yellow,alpha,beta,level){
           return value;
         }
         callBeforBoard(3,b1,b2,w1-2,w2,turn);
-      }
-    }
-    if(yellow >= 0){//縦の壁
-      for(var i = 1;i < n;i++){
-        for(var j = 1;j < n;j++){
-          if(node_wall[i][j-1] != 4 && node_wall[i][j+1] != 4 && node_wall[i][j] == 0){
-            node_wall[i][j] = 4;
-            if(work(node_wall,b1,b2,w1,w2,0)){
-                child = miniMax(b1,b2,w1,w2,3-turn,blue,yellow-1,alpha,beta,level-1)
-                a = evalChild(turn,child,value,type,4,j,i,bestX,bestY,alpha,beta)
-                value = a[0]
-                type = a[1]
-                bestX = a[2]
-                bestY = a[3]
-                alpha = a[4]
-                beta = a[5]
-                if(value < alpha){
-                  callBeforWall(turn,i,j)
-                  return value;
-                }
-                callBeforWall(turn,i,j)
-            }else{
-              node_wall[i][j] = 0;
-            }
-          }
-          if(node_wall[i - 1][j] != 3 && node_wall[i + 1][j] != 3 && node_wall[i][j] == 0){
-            node_wall[i][j] = 3;
-            if(work(node_wall,b1,b2,w1,w2,0)){
-                child = miniMax(b1,b2,w1,w2,3-turn,blue,yellow-1,alpha,beta,level-1)
-                a = evalChild(turn,child,value,type,5,j,i,bestX,bestY,alpha,beta)
-                value = a[0]
-                type = a[1]
-                bestX = a[2]
-                bestY = a[3]
-                alpha = a[4]
-                beta = a[5]
-                if(value < alpha){
-                  callBeforWall(turn,i,j)
-                  return value;
-                }
-                callBeforWall(turn,i,j)
-            }else{
-              node_wall[i][j] = 0;
-            }
-          }
-        }
       }
     }
     //up
